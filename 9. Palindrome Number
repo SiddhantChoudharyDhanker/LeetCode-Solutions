@@ -1,0 +1,19 @@
+/* In this code, at start I tried to convert the integer number into string using the to_string() function and then reverse using reverse() function and back to integer using stoi() function and then compare to check the palindrome properties. This was working fine until I got negative number like "-121". 
+When we convert the negative integer into string and then reverse it it comes like this "121-", because of that while converting back into the integer It gives and error "terminate called after throwing an instance of 'std::invalid_argument' what(): stoi" so to resolve this issue
+I compare the both original and reversed interger without converting it back into int ( int string )*/
+
+// 9. Palindrome Number
+
+bool isPalindrome(int x) {
+        string temp = to_string(x);
+        string temp2 = temp;
+        reverse(temp.begin(), temp.end());
+
+        if(temp == temp2)
+        {
+            return true;
+        } else
+        {
+            return false;
+        }
+    }
