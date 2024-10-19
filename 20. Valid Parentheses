@@ -1,0 +1,49 @@
+Approach:
+>> Use a stack: Push opening brackets onto the stack, and when a closing bracket is encountered, check if the top of the stack contains the corresponding opening bracket.
+>> Conditions for a valid string:
+  - Each closing bracket must have a matching opening bracket on the stack.
+  - The stack must be empty at the end, ensuring that all opening brackets have been matched.
+
+----------------------------Function-Code-----------------------------
+bool isValid(std::string s) {
+    // Step 1: Create a map to associate closing brackets with their corresponding opening brackets
+    std::unordered_map<char, char> bracketMap = {
+        {')', '('}, 
+        {']', '['}, 
+        {'}', '{'}
+    };
+    
+    // Step 2: Initialize a stack to store opening brackets
+    std::stack<char> stack;
+    
+    // Step 3: Iterate through the string
+    for (char c : s) {
+        // If it's a closing bracket
+        if (bracketMap.count(c)) {
+            // Pop the top element from the stack if it's not empty, otherwise use a dummy value '#'
+            char topElement = (!stack.empty()) ? stack.top() : '#';
+            stack.pop();
+            
+            // If the top element doesn't match the corresponding opening bracket, return false
+            if (topElement != bracketMap[c]) {
+                return false;
+            }
+        } else {
+            // If it's an opening bracket, push it onto the stack
+            stack.push(c);
+        }
+    }
+    
+    // Step 4: Return true if the stack is empty, meaning all brackets were matched
+    return stack.empty();
+}
+
+
+
+--------------------------EXPLANATION----------------------
+
+Explanation:
+>> bracketMap: This maps closing brackets to their corresponding opening brackets.
+>> stack: We push opening brackets onto the stack and pop them when we find a matching closing bracket.
+>> Matching logic: For every closing bracket, check if it matches the top of the stack (the most recent opening bracket). If not, the string is invalid.
+>> Final check: At the end, if the stack is empty, the string is valid, meaning all opening brackets have been matched correctly.
